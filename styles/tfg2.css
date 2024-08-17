@@ -1,0 +1,187 @@
+p{
+    text-align: center;
+    line-height: 1.6;
+}
+
+h4 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    text-align: center; /* Centra el texto de todos los h4 */
+}
+
+.page-title {
+    text-align: center;
+    color: var(--color-orange);
+    margin: 2rem 0;
+}
+
+button {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    margin: 0.5rem 0; /* Espaciado entre botones */
+}
+
+button a {
+    color: var(--color-white);
+    text-decoration: none;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    color: var(--color-blue-zone1);
+    opacity: 0.6; /* Opcional: Da un efecto visual de desactivado */
+}
+
+/* Introducción del proyecto */
+
+.project-introduction {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.project-section, .project-details {
+    max-width: 800px;
+    margin: 0 auto 2rem auto; /* Añade margen inferior para separar secciones */
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color: var(--color-blue-zone2);
+    border-radius: 10px;
+}
+
+.project-section h2 {
+    text-align: center;
+}
+
+.project-section2 {
+    max-width: 800px;
+    margin: 0 auto 1rem auto; /* Añade margen inferior para separar secciones */
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color: var(--color-blue-zone3);
+    border-radius: 10px;
+}
+
+.project-section3 {
+    max-width: 800px;
+    margin: 0 auto 2rem auto; /* Añade margen inferior para separar secciones */
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color: var(--color-blue-zone4);
+    border-radius: 10px;
+}
+
+.introduction-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.introduction-content img {
+    max-width: 250px;
+    margin-right: 1rem;
+    /*border: 2px solid var(--color-orange);
+    border-radius: 10px;*/
+}
+
+.introduction-content p, ul {
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* Zona de Descargas */
+
+.download-zone button {
+    display: block;
+    margin: 0.5rem auto; /* Centra los botones horizontalmente */
+    text-align: center;  /* Alinea el texto dentro del botón */
+    margin-bottom: 0.5rem;
+}
+
+.sinopsis p {
+    text-align: justify;
+}
+
+/* timeline */
+
+.timeline {
+    overflow: hidden; /* Evita que los eventos sobresalgan del contenedor */
+    padding-bottom: 100px; /* Espacio adicional para el contenido */
+}
+
+.progress-container {
+    position: relative;
+    width: 10px; /* Ancho de la barra */
+    height: 300px; /* Altura de la barra */
+    border-radius: 10px;
+    background-color: black; /* Color de fondo para visualizar la barra */
+    margin: 20px auto; /* Centrar la barra horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* La barra crecerá desde la parte superior */
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: var(--color-orange);
+    border-radius: 10px;
+    height: 0%; /* Comenzamos con la barra vacía */
+    transition: height 0.5s ease-in-out; /* Animación para un cambio suave */
+}
+
+.timeline-event {
+    position: absolute;
+    width: 200px;
+    text-align: left;
+    left: 30px; /* A la derecha de la barra */
+}
+
+.event-connector {
+    position: absolute;
+    top: 0%;
+    left: -20px; /* Ajusta para que se conecte a la barra */
+    width: 20px; /* Ancho de la línea conectora */
+    height: 2px; /* Grosor de la línea conectora */
+    background-color: var(--color-orange); /* Color de la línea conectora */
+    transform: translateY(-50%);
+}
+
+.event-date {
+    text-align: center;
+    background-color: var(--color-blue-zone3);
+    color: white;
+    padding: 5px;
+    border: 1px solid var(--color-blue-zone1);
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.event-description {
+    text-align: center;
+    background-color: var(--color-blue-zone3);
+    color: white;
+    padding: 5px;
+    border: 1px solid var(--color-blue-zone1);
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.timeline-event:nth-child(even) {
+    left: -220px; /* A la izquierda de la barra */
+    text-align: right;
+}
+
+.timeline-event:nth-child(even) .event-connector {
+    left: 100%; /* Para conectar a la barra desde la izquierda */
+}
+
+/* footer */
+
+.copyright {
+    text-align: center;
+}
+
+

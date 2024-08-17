@@ -1,0 +1,122 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-blue-zone1);
+    color: var(--color-white);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-family: 'Press Start 2P', cursive;
+}
+
+header {
+    background-color: var(--color-blue-zone2);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desktop-menu {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.desktop-menu li {
+    margin-left: 30px;
+    margin-top: 10px; /* Add general margin top for all items */
+    margin-bottom: 10px;
+}
+
+.desktop-menu li:first-child {
+    margin-top: 10px; /* Remove left margin for the first item to align with the header start */
+}
+
+.desktop-menu li:not(:first-child) {
+    margin-top: 10px; /* Additional margin-top for wrapped lines */
+}
+
+.desktop-menu a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    padding: 10px 15px;
+    background-color: var(--color-blue-zone1);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.desktop-menu a:hover {
+    background-color: var(--color-orange);
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--color-white);
+}
+
+.mobile-menu {
+    display: none;
+}
+
+footer {
+    background-color: var(--color-blue-zone2);
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        list-style: none;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-blue-zone2);
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .mobile-menu.show-menu {
+        display: block;
+    }
+
+    .mobile-menu li {
+        margin-bottom: 15px;
+    }
+
+    .mobile-menu a {
+        color: var(--color-white);
+        text-decoration: none;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 0.8rem;
+        display: block;
+        padding: 10px;
+        background-color: var(--color-blue-zone1);
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+        background-color: var(--color-orange);
+    }
+}
