@@ -39,12 +39,18 @@ function actualizarContadorEnPagina() {
 }
 
 // Llamar a esta función cuando se carga la página
-actualizarContadorEnPagina();
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarContadorEnPagina();
 
-// Event listener para el botón de descarga
-document.getElementById('boton-descarga').addEventListener('click', (e) => {
-  e.preventDefault();
-  incrementarContador();
-  // Aquí puedes añadir el código para iniciar la descarga real
-  //window.location.href = 'URL_DE_TU_LIBRO_ELECTRONICO';
+  // Event listeners para los botones de descarga
+  ['es', 'ca'].forEach(idioma => {
+    const boton = document.getElementById(`boton-descarga-${idioma}`);
+    boton.addEventListener('click', (e) => {
+      e.preventDefault();
+      incrementarContador();
+      // Aquí puedes añadir el código para iniciar la descarga real
+      // Por ejemplo:
+      // window.location.href = `URL_DE_TU_LIBRO_ELECTRONICO_${idioma.toUpperCase()}`;
+    });
+  });
 });

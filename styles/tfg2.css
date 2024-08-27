@@ -104,6 +104,27 @@ button:disabled {
     text-align: justify;
 }
 
+.download-button {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    margin: 0.5rem 0;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: var(--color-blue-zone3);
+}
+
+.download-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* timeline */
 
 .timeline {
