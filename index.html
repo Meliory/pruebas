@@ -22,7 +22,7 @@
         <section class="project-introduction project-section">
             <h2>Introducción del Proyecto</h2>
             <div class="introduction-content">
-                <img src="./images/Logo_ELYA_PNG_Blanco.png" alt="Logo del juego">
+                <img src="../images/Logo_ELYA_PNG_Blanco.png" alt="Logo del juego">
                 <div>
                     <p><strong>Entre Lienzos y Acordes</strong> es el proyecto central de mi Trabajo de Fin de Grado, un esfuerzo creativo dividido en tres partes claramente diferenciadas pero intrínsecamente conectadas. Cada una de estas partes contribuye de manera única a la creación de un universo narrativo y artístico cohesivo:</p>
                     <ul>
@@ -46,6 +46,8 @@
                 </section>
                 <section class="project-section3">
                     <h4>Edición en castellano</h4>
+                    <p>Descargas: <span id="contador-descargas">0</span></p>
+                    <a href="#" id="boton-descarga">Descargar libro electrónico</a>
                 </section>
                 <section class="project-section3">
                     <h4>Edición en catalán</h4>
@@ -120,5 +122,9 @@
         <!-- Footer similar al de las otras páginas -->
         <p class="copyright">© 2024 Albert Sánchez. Todos los derechos reservados.</p>
     </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="./scripts/contador-descargas.js"></script>
 </body>
 </html>

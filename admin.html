@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración del Contador de Descargas</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #login-form, #admin-panel { margin-bottom: 20px; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Administración del Contador de Descargas</h1>
+    
+    <div id="login-form">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button id="login-button">Iniciar Sesión</button>
+    </div>
+
+    <div id="admin-panel" style="display: none;">
+        <h2>Panel de Administración</h2>
+        <p>Contador actual: <span id="contador-actual">Cargando...</span></p>
+        <button id="reset-button">Reiniciar Contador</button>
+        <button id="logout-button">Cerrar Sesión</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="./scripts/admin.js"></script>
+</body>
+</html>
