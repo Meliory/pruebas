@@ -92,6 +92,73 @@ button:disabled {
 
 /* Zona de Descargas */
 
+/* Contador */
+
+.counter-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0.5rem 0;
+    margin-top: -1.5rem;
+}
+
+.reader-counter {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-blue-zone3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+}
+
+.reader-counter h4 {
+    margin: 0;
+    margin-right: 0.5rem;
+    color: var(--color-white);
+    font-size: 0.9rem;
+}
+
+.counter-display {
+    font-family: 'Digital', 'Courier New', monospace;
+    font-size: 1.5rem;
+    color: #00ff00;
+    background-color: var(--color-blue-zone1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    min-width: 35px;
+    text-align: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 3px #00ff00;
+}
+
+@keyframes numberChange {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-20px); opacity: 0; }
+    51% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.counter-display span.changing {
+    display: inline-block;
+    animation: numberChange 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .reader-counter {
+        flex-direction: column;
+    }
+
+    .reader-counter h4 {
+        margin-right: 0;
+        margin-bottom: 0.25rem;
+    }
+
+    .counter-display {
+        font-size: 1.2rem;
+    }
+}
+
+/* Botones Descarga */
+
 .button-container {
     display: flex;
     flex-wrap: wrap;

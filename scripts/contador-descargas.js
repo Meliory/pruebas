@@ -33,9 +33,26 @@ function incrementarContador() {
 function actualizarContadorEnPagina() {
   const contadorRef = database.ref('contador');
   contadorRef.on('value', (snapshot) => {
-    const contador = snapshot.val() || 0;
-    document.getElementById('contador-descargas').textContent = contador;
+      const nuevoValor = snapshot.val() || 0;
+      animarCambioContador(nuevoValor);
   });
+}
+
+function animarCambioContador(nuevoValor) {
+  const contadorElement = document.getElementById('contador-descargas');
+  const valorActual = parseInt(contadorElement.textContent);
+
+  if (nuevoValor !== valorActual) {
+      contadorElement.classList.add('changing');
+      
+      setTimeout(() => {
+          contadorElement.textContent = nuevoValor;
+      }, 250);
+
+      setTimeout(() => {
+          contadorElement.classList.remove('changing');
+      }, 500);
+  }
 }
 
 // Llamar a esta función cuando se carga la página
