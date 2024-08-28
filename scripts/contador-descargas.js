@@ -59,24 +59,29 @@ function animarCambioContador(nuevoValor) {
 document.addEventListener('DOMContentLoaded', () => {
   actualizarContadorEnPagina();
 
-  // Event listeners para los botones de descarga
-  const botones = [
-      'boton-wattpad-es', 'boton-inkspired-es', 
-      'boton-epub-es', 'boton-azw3-es', 
-      'boton-amazon-es', 'boton-wattpad-ca',
-      'boton-inkspired-ca', 'boton-epub-ca',
-      'boton-azw3-ca', 'boton-amazon-ca'
-  ];
+  // Manejar clics en botones
+  const botones = document.querySelectorAll('.download-button');
+  botones.forEach(boton => {
+      boton.addEventListener('click', (e) => {
+          e.preventDefault();
+          incrementarContador();
 
-  botones.forEach(id => {
-      const boton = document.getElementById(id);
-      if (boton) {
-          boton.addEventListener('click', (e) => {
-              e.preventDefault();
-              incrementarContador();
-              // Aquí puedes añadir el código para la acción específica de cada botón
-              // Por ejemplo, redirigir a la página correspondiente
-          });
-      }
+          const url = boton.dataset.url;
+          const file = boton.dataset.file;
+          const filename = boton.dataset.filename;
+
+          if (url) {
+              // Abrir enlace en nueva pestaña
+              window.open(url, '_blank');
+          } else if (file) {
+              // Iniciar descarga
+              const link = document.createElement('a');
+              link.href = file;
+              link.download = filename || 'download';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          } 
+      });
   });
 });
