@@ -4,7 +4,6 @@ p{
 }
 
 h4 {
-    font-family: 'Press Start 2P', cursive;
     font-size: 14px;
     text-align: center; /* Centra el texto de todos los h4 */
 }
@@ -93,6 +92,14 @@ button:disabled {
 
 /* Zona de Descargas */
 
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
 .download-zone button {
     display: block;
     margin: 0.5rem auto; /* Centra los botones horizontalmente */
@@ -109,10 +116,12 @@ button:disabled {
     color: var(--color-white);
     border: none;
     padding: 0.5rem 1rem;
-    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
     cursor: pointer;
-    margin: 0.5rem 0;
     transition: background-color 0.3s ease;
+    flex: 1 0 auto;
+    max-width: 200px;
+    min-width: 150px;
 }
 
 .download-button:hover {
@@ -123,6 +132,25 @@ button:disabled {
     background-color: gray;
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+h5 {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .download-button {
+        width: 100%;
+        max-width: none;
+    }
 }
 
 /* timeline */

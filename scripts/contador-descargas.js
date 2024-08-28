@@ -43,14 +43,23 @@ document.addEventListener('DOMContentLoaded', () => {
   actualizarContadorEnPagina();
 
   // Event listeners para los botones de descarga
-  ['es', 'ca'].forEach(idioma => {
-    const boton = document.getElementById(`boton-descarga-${idioma}`);
-    boton.addEventListener('click', (e) => {
-      e.preventDefault();
-      incrementarContador();
-      // Aquí puedes añadir el código para iniciar la descarga real
-      // Por ejemplo:
-      // window.location.href = `URL_DE_TU_LIBRO_ELECTRONICO_${idioma.toUpperCase()}`;
-    });
+  const botones = [
+      'boton-wattpad-es', 'boton-inkspired-es', 
+      'boton-epub-es', 'boton-azw3-es', 
+      'boton-amazon-es', 'boton-wattpad-ca',
+      'boton-inkspired-ca', 'boton-epub-ca',
+      'boton-azw3-ca', 'boton-amazon-ca'
+  ];
+
+  botones.forEach(id => {
+      const boton = document.getElementById(id);
+      if (boton) {
+          boton.addEventListener('click', (e) => {
+              e.preventDefault();
+              incrementarContador();
+              // Aquí puedes añadir el código para la acción específica de cada botón
+              // Por ejemplo, redirigir a la página correspondiente
+          });
+      }
   });
 });

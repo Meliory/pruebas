@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/dogicapixel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PixelBold';
+    src: url('../fonts/dogicapixelbold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--color-blue-zone1);
@@ -6,8 +20,12 @@ body {
     padding: 0;
 }
 
-h1, h2, h3 {
-    font-family: 'Press Start 2P', cursive;
+h1, h2, h3, h4, h5 {
+    font-family: 'Pixel', 'Press Start 2P', cursive;
+}
+
+button {
+    font-family: 'PixelBold', 'Press Start 2P', cursive;
 }
 
 header {
