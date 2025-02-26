@@ -3,683 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entre Lienzos y Acordes - TFG</title>
+    <title>Entre Lienzos y Acordes</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;600;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-yellow: #fbf9c4;
-            --color-orange: #FF7F50;
-            --color-white: #FFFFFF;
-            --color-blue-zone1: #0F1624;
-            --color-blue-zone2: #1B2639;
-            --color-blue-zone3: #283B5B;
-            --color-blue-zone4: #384E7A;
-            --color-accent: #88C4FF;
-            --transition-speed: 0.3s;
-            --border-radius: 10px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            color: var(--color-white);
-            background-color: var(--color-blue-zone1);
-            background-image: 
-                radial-gradient(ellipse at 30% 30%, rgba(60, 1, 60, 0.07) 0%, rgba(128, 0, 128, 0.05) 40%, transparent 70%),
-                radial-gradient(circle at 80% 15%, rgba(150, 20, 60, 0.04) 0%, rgba(150, 20, 60, 0.03) 30%, transparent 60%),
-                radial-gradient(ellipse at 40% 80%, rgba(0, 28, 85, 0.08) 0%, rgba(0, 50, 150, 0.04) 50%, transparent 75%),
-                radial-gradient(circle at 10% 60%, rgba(159, 27, 27, 0.07) 0%, transparent 60%),
-                radial-gradient(ellipse at 85% 30%, rgba(0, 90, 90, 0.13) 0%, rgba(0, 128, 128, 0.05) 40%, transparent 70%),
-                radial-gradient(ellipse at 85% 90%, rgba(86, 82, 12, 0.15) 0%, rgba(70, 78, 0, 0.05) 15%, transparent 90%),
-                radial-gradient(circle at 5% 5%, rgba(5, 30, 52, 0.18) 0%, transparent 40%);
-            position: relative;
-            overflow-x: hidden;
-            
-            background-blend-mode: screen;
-        }
-
-        /* Elementos decorativos sutiles */
-        .decoration {
-            position: absolute;
-            opacity: 0.02;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .musical-note {
-            top: 15%;
-            left: 5%;
-            width: 150px;
-            height: 150px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            transform: rotate(15deg);
-        }
-
-        .paint-brush {
-            bottom: 15%;
-            left: 5%;
-            width: 150px;
-            height: 150px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            transform: rotate(-15deg);
-        }
-
-        .controller {
-            top: 50%;
-            right: 8%;
-            width: 150px;
-            height: 150px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            transform: rotate(5deg);
-        }
-
-        /* Añadir a la sección de estilos */
-        .stars-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -2;
-            /*overflow: hidden;*/
-        }
-
-        .star {
-            position: absolute;
-            background-color: #ffffff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle var(--twinkle-duration) ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: var(--star-opacity); }
-            100% { opacity: 0; }
-        }
-
-        .star.with-glow {
-            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Header y navegación */
-        header {
-            background-color: rgba(15, 22, 36, 0.95);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            border-bottom: 2px solid rgba(255, 127, 80, 0.3);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .nav-logo {
-            height: 40px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--color-white);
-            text-decoration: none;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all var(--transition-speed);
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--color-orange);
-            transition: width var(--transition-speed);
-        }
-
-        .nav-links a:hover {
-            color: var(--color-orange);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Contenido principal */
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        /* Estilos generales de texto */
-        p {
-            text-align: center;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        h1, h2, h3, h4, h5 {
-            font-family: 'Raleway', sans-serif;
-            margin-bottom: 1rem;
-        }
-
-        h4 {
-            font-size: 14px;
-            text-align: center;
-        }
-
-        /* Título principal */
-        .page-title {
-            text-align: center;
-            color: var(--color-yellow);
-            margin: 2rem 0;
-            font-size: 2.5rem;
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .page-title::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 3px;
-            background-color: var(--color-yellow);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--color-accent);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Secciones del proyecto */
-        .project-section {
-            max-width: 800px;
-            margin: 0 auto 2rem auto;
-            padding: 1.5rem 2rem;
-            background-color: var(--color-blue-zone2);
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, var(--color-yellow), var(--color-accent));
-        }
-
-        .project-section h2 {
-            text-align: center;
-            color: var(--color-yellow);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .project-section2 {
-            max-width: 800px;
-            margin: 0 auto 1.5rem auto;
-            padding: 1.2rem 2rem;
-            background-color: var(--color-blue-zone3);
-            border-radius: var(--border-radius);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-section2 h3 {
-            color: var(--color-white);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .project-section3 {
-            max-width: 800px;
-            margin: 0 auto 1rem auto;
-            padding: 1rem 1.5rem;
-            background-color: var(--color-blue-zone4);
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-section3 h4 {
-            color: var(--color-accent);
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-        }
-
-        /* Introducción del proyecto */
-        .introduction-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .introduction-content img {
-            max-width: 220px;
-        }
-
-        .introduction-content p, 
-        .introduction-content ul {
-            text-align: justify;
-            line-height: 1.6;
-        }
-
-        .introduction-content ul {
-            list-style-type: none;
-            padding-left: 1.2rem;
-        }
-
-        .introduction-content li {
-            margin-bottom: 0.8rem;
-            position: relative;
-        }
-
-        .introduction-content li::before {
-            content: '•';
-            color: var(--color-yellow);
-            font-weight: bold;
-            position: absolute;
-            left: -1.2rem;
-        }
-
-        .introduction-content strong {
-            color: var(--color-accent);
-            font-weight: 600;
-        }
-
-        /* Sinopsis con estilo especial */
-        .sinopsis {
-            background-color: var(--color-blue-zone4);
-            position: relative;
-            padding: 1.5rem;
-            border-left: 3px solid var(--color-yellow);
-        }
-
-        .sinopsis p {
-            text-align: justify;
-            font-style: italic;
-            color: var(--color-white);
-        }
-
-        .sinopsis p:last-child {
-            font-weight: 600;
-            margin-top: 1rem;
-            color: var(--color-accent);
-        }
-
-        /* Contador de descargas */
-        .counter-container {
-            width: 100%;
-            margin: 1.5rem 0;
-        }
-
-        .reader-counter-section {
-            max-width: 800px;
-            margin: 0 auto 1rem auto;
-            padding: 0rem 2rem;
-            background-color: var(--color-blue-zone3);
-            border-radius: var(--border-radius);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .reader-counter {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-        }
-
-        .reader-counter h4 {
-            margin: 0;
-            margin-right: 0.8rem;
-            color: var(--color-white);
-            font-size: 1rem;
-        }
-
-        .counter-display {
-            font-family: 'Digital', 'Courier New', monospace;
-            font-size: 1.5rem;
-            color: #00ff00;
-            background-color: var(--color-blue-zone1);
-            padding: 0.1rem 0.4rem;
-            border-radius: 3px;
-            min-width: 35px;
-            text-align: center;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-            text-shadow: 0 0 3px #00ff00;
-        }
-
-        #contador-descargas {
-            display: inline-block;
-        }
-
-        /* Botones de descarga */
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin: 1rem 0;
-        }
-
-        button, .download-button {
-            background-color: var(--color-orange);
-            color: var(--color-white);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            border-radius: 5px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            min-width: 120px;
-            text-align: center;
-        }
-
-        button:hover, 
-        .download-button:hover {
-            background-color: #FF9770;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        button:active, 
-        .download-button:active {
-            transform: translateY(0);
-        }
-
-        button a {
-            color: var(--color-white);
-            text-decoration: none;
-        }
-
-        button:disabled, 
-        .download-button:disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-            opacity: 0.7;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .download-button {
-            flex: 1 0 auto;
-            max-width: 180px;
-            min-width: 120px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .download-button:hover::after {
-            transform: translateX(0);
-        }
-
-        h5 {
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-accent);
-        }
-
-        /* Features de producto */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 0.8rem;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateX(5px);
-        }
-
-        .feature-icon {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            color: var(--color-yellow);
-        }
-
-        .feature-text {
-            flex-grow: 1;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            color: var(--color-accent);
-            margin-bottom: 0.2rem;
-        }
-
-        .feature-description {
-            font-size: 0.85rem;
-            color: var(--color-white);
-            opacity: 0.9;
-        }
-
-        /* Sección "Próximamente" */
-        .soon {
-            text-align: center;
-            padding: 3rem 1rem;
-            background-color: var(--color-blue-zone2);
-            border-radius: var(--border-radius);
-            margin-top: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .soon h4 {
-            font-family: 'Raleway', sans-serif;
-            font-size: 1.8rem;
-            color: var(--color-yellow);
-            position: relative;
-            z-index: 1;
-        }
-
-        .soon::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 127, 80, 0.05) 0%, transparent 70%);
-            animation: rotation 20s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--color-blue-zone1);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--color-blue-zone3);
-            transition: all var(--transition-speed);
-        }
-
-        .social-icon:hover {
-            transform: translateY(-3px);
-        }
-        
-        .social-icon:nth-child(1):hover {
-            background-color: #E4405F; /* Instagram */
-        }
-        
-        .social-icon:nth-child(2):hover {
-            background-color: #1DA1F2; /* Twitter */
-        }
-        
-        .social-icon:nth-child(3):hover {
-            background-color: #FF0000; /* YouTube */
-        }
-
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--color-white);
-        }
-
-        .copyright {
-            text-align: center;
-            color: var(--color-white);
-            opacity: 0.7;
-            font-size: 0.85rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .nav-logo {
-                margin: 0 auto;
-            }
-
-            .introduction-content {
-                flex-direction: column;
-            }
-
-            .introduction-content img {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
-
-            .project-section, 
-            .project-section2, 
-            .project-section3 {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .download-button {
-                width: 100%;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/elya.css">
+    <script src="./scripts/tfg2.js"></script>
 </head>
 <body>
     <!-- Elementos decorativos -->
     <div class="decoration musical-note"></div>
-    <div class="decoration paint-brush"></div>
+    <div class="decoration book"></div>
     <div class="decoration controller"></div>
+    <div class="decoration butterfly"></div>
     <div class="stars-container" id="stars-container"></div>
 
     <header>
@@ -688,7 +22,7 @@
             <div class="nav-links">
                 <a href="#proyecto">Proyecto</a>
                 <a href="#libro">Novela</a>
-                <a href="#disco">Soundtrack</a>
+                <a href="#disco">Disco</a>
                 <a href="#juego">Videojuego</a>
             </div>
         </nav>
@@ -728,7 +62,7 @@
                     <div class="reader-counter">
                         <h4>Lectores totales:</h4>
                         <div class="counter-display">
-                            <span id="contador-descargas">327</span>
+                            <span id="contador-descargas">0</span>
                         </div>
                     </div>
                 </div>
@@ -761,7 +95,10 @@
 
             <!-- Disco -->
             <section id="disco" class="download-disc project-section2">
-                <h3>𝄞ㅤSoundtrack Originalㅤ♪</h3>
+                <h3>𝄞
+                    ㅤSoundtrack Originalㅤ
+                    ♪
+                </h3>
                 <section class="project-section3">
                     <h4>Álbum musical</h4>
                     <p>El disco de "Entre Lienzos y Acordes" captura la esencia emocional de la historia a través de composiciones originales que exploran diferentes géneros musicales, desde piezas ambientales hasta rock alternativo.</p>
@@ -769,21 +106,21 @@
                     <h5>Anticipación del álbum:</h5>
                     <div class="feature-list">
                         <div class="feature-item">
-                            <div class="feature-icon">♫</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="currentColor" d="M19.24 4.758a10.24 10.24 0 1 0 3 7.25a10.2 10.2 0 0 0-3-7.25M12 19.438a7.44 7.44 0 0 1-5.83-2.81a.75.75 0 0 1 1.17-.93a6 6 0 0 0 2.07 1.65a6 6 0 0 0 2.59.59a.75.75 0 1 1 0 1.5m0-4.31a3.12 3.12 0 1 1 0-6.24a3.12 3.12 0 0 1 0 6.24m6.61-4.3a.8.8 0 0 1-.22 0a.74.74 0 0 1-.71-.53a5.93 5.93 0 0 0-3.91-4a.75.75 0 0 1 .45-1.43a7.35 7.35 0 0 1 3.07 1.88a7.45 7.45 0 0 1 1.82 3.1a.74.74 0 0 1-.5 1.01z"/></svg></div>
                             <div class="feature-text">
-                                <div class="feature-title">9-10 canciones originales</div>
-                                <div class="feature-description">Divididas en dos secciones temáticas que complementan la narrativa.</div>
+                                <div class="feature-title">10 canciones originales</div>
+                                <div class="feature-description">Divididas en dos secciones temáticas que complementan la narrativa. Las canciones de fondo y las cantadas por la banda.</div>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">♪</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg></div>
                             <div class="feature-text">
                                 <div class="feature-title">Canciones de personajes</div>
-                                <div class="feature-description">Piezas que reflejan las emociones y perspectivas de Ruby y Aura.</div>
+                                <div class="feature-description">Piezas que reflejan las vivencias Ruby, Aura y Nico en la historia.</div>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">♬</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512"><path fill="currentColor" d="M196.56 318.381L138.49 352L256 420.032L373.51 352l-58.07-33.619l21.335-36.95L458.667 352L256 469.333L53.334 352l121.891-70.569z"/><path fill="currentColor" fill-rule="evenodd" d="m231.367 335.999l6.158 10.667L256 378.667l18.475-32.001l6.159-10.667c26.635-46.132 66.14-114.553 72.379-125.326C362.56 194.187 368 175.07 368 154.667c0-61.856-50.144-112-112-112s-112 50.144-112 112c0 20.403 5.44 39.52 14.987 56.006c6.239 10.773 45.745 79.194 72.38 125.326M256 293.333c-25.12-43.508-54.745-94.811-60.09-104.042Zm0 0c25.121-43.509 54.747-94.814 60.091-104.042c5.874-10.144 9.242-21.908 9.242-34.624c0-38.292-31.041-69.334-69.333-69.334s-69.333 31.042-69.333 69.334c0 12.716 3.368 24.48 9.243 34.624" clip-rule="evenodd"/><path fill="currentColor" d="M293.333 149.333c0 20.619-16.714 37.334-37.333 37.334c-20.618 0-37.333-16.715-37.333-37.334C218.667 128.715 235.382 112 256 112c20.619 0 37.333 16.715 37.333 37.333"/></svg></div>
                             <div class="feature-text">
                                 <div class="feature-title">Música ambiental</div>
                                 <div class="feature-description">Composiciones instrumentales que acompañan momentos clave de la historia.</div>
@@ -791,7 +128,7 @@
                         </div>
                     </div>
                 </section>
-                <p>Salida prevista en: <strong>Enero 2026</strong></p>
+                <p>Salida prevista en: <strong>Febrero 2026</strong></p>
                 <div class="button-container">
                     <button disabled class="download-button">No disponible</button>
                 </div>
@@ -802,29 +139,29 @@
                 <h3>✿ㅤDemo del Videojuegoㅤ♤</h3>
                 <section class="project-section3">
                     <h4>Experiencia interactiva</h4>
-                    <p>La demo de "Entre Lienzos y Acordes" ofrece una ventana interactiva al universo de Ruby y Aura, permitiendo a los jugadores sumergirse en su historia a través de una experiencia multimedia que combina arte visual, música original y narración.</p>
+                    <p>La demo de "Entre Lienzos y Acordes" ofrece una ventana interactiva al universo de Ruby y Aura, permitiendo a los jugadores sumergirse en su historia a través de una experiencia multimedia que combina mundo abierto, música original y narración.</p>
                     
                     <h5>Características previstas:</h5>
                     <div class="feature-list">
                         <div class="feature-item">
-                            <div class="feature-icon">✦</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M20.75 16.714a1 1 0 0 1-.014.143a.75.75 0 0 1-.736.893H6a1.25 1.25 0 1 0 0 2.5h14a.75.75 0 0 1 0 1.5H6A2.75 2.75 0 0 1 3.25 19V5A2.75 2.75 0 0 1 6 2.25h13.4c.746 0 1.35.604 1.35 1.35zM9 6.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z" clip-rule="evenodd"/></svg></div>
                             <div class="feature-text">
-                                <div class="feature-title">Narración visual</div>
-                                <div class="feature-description">Elementos de novela visual con ilustraciones originales de los personajes y escenarios.</div>
+                                <div class="feature-title">Narrativa fiel</div>
+                                <div class="feature-description">Historia fiel a la novela con personajes y escenarios reconocibles.</div>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">✦</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><g fill="none"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="m17.956 2.169l.111.055l.866.5a1 1 0 0 1 .488 1.02l-.026.12l-.567 1.983a1 1 0 0 1-1.344.649l-.118-.058l-1.534 2.656c.92.721 1.369 1.493 1.674 2.213c.223.523.414 1.205.306 1.939c-.105.712-.477 1.362-1.14 1.888l-.189.14c-.433.305-.44.657-.328 1.097l.105.383c.183.688.401 1.764.072 3.01c-.276 1.043-.943 1.865-1.7 2.411c-.745.538-1.666.871-2.538.826c-1.36-.07-2.749-.41-4.594-1.475s-2.834-2.098-3.574-3.24c-.475-.733-.647-1.698-.554-2.612c.094-.928.473-1.917 1.238-2.677c.784-.779 1.66-1.147 2.328-1.352l.315-.091l.272-.07c.524-.134.799-.233.88-.73l.017-.134c.085-.951.478-1.677 1.093-2.165c.58-.46 1.268-.635 1.832-.704c.712-.087 1.521-.092 2.486.243l.267.1l1.534-2.656a1 1 0 0 1-.303-1.461l.084-.1l1.433-1.482a1 1 0 0 1 1.108-.226M11.59 9.736c-.38.047-.656.147-.833.287c-.126.1-.266.269-.325.63l-.017.144c-.065.732-.296 1.336-.734 1.791c-.416.432-.957.638-1.516.796l-.569.156c-.536.155-1.061.363-1.576.875c-.381.379-.602.908-.659 1.462c-.057.568.068 1.051.243 1.32c.558.862 1.308 1.68 2.896 2.597s2.672 1.157 3.697 1.21c.32.016.802-.117 1.265-.45c.452-.326.799-.782.936-1.301c.186-.702.104-1.261-.03-1.803l-.094-.36c-.17-.631-.31-1.274-.124-1.921c.155-.54.495-.997.991-1.388l.194-.144c.38-.266.472-.504.499-.683c.033-.223-.018-.512-.168-.865c-.234-.55-.557-1.117-1.432-1.679l-.197-.12l-.074-.043c-1.034-.588-1.737-.589-2.373-.511m-1.523 6.344l.866.5a1 1 0 1 1-1 1.732l-.866-.5a1 1 0 1 1 1-1.732m2.683-3.647a1.5 1.5 0 0 1 .615 1.92l-.066.129a1.5 1.5 0 0 1-2.67-1.363l.072-.137a1.5 1.5 0 0 1 2.05-.55Z"/></g></svg></div>
                             <div class="feature-text">
-                                <div class="feature-title">Integración musical</div>
-                                <div class="feature-description">La banda sonora original se integra de forma dinámica con la jugabilidad.</div>
+                                <div class="feature-title">Minijuegos musicales</div>
+                                <div class="feature-description">La banda sonora original se integra de forma dinámica incluso dejando al jugador pudiendo tocarla.</div>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">✦</div>
+                            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-.175-.012-.363t-.013-.312q-.125.725-.675 1.2T18 13h-2q-.825 0-1.412-.587T14 11v-1h-4V8q0-.825.588-1.412T12 6h1q0-.575.313-1.012t.762-.713q-.5-.125-1.012-.2T12 4Q8.65 4 6.325 6.325T4 12h5q1.65 0 2.825 1.175T13 16v1h-3v2.75q.5.125.988.188T12 20"/></svg></div>
                             <div class="feature-text">
-                                <div class="feature-title">Mecánicas basadas en arte y música</div>
-                                <div class="feature-description">Puzles y desafíos que reflejan las pasiones de los personajes principales.</div>
+                                <div class="feature-title">Exploración abierta</div>
+                                <div class="feature-description">Mundo explorable y ampliación de la historia.</div>
                             </div>
                         </div>
                     </div>
@@ -844,106 +181,23 @@
     <footer>
         <div class="footer-content">
             <div class="social-links">
-                <a href="#" class="social-icon">
+                <a href="https://www.instagram.com/albert_sanchez_20/" target="_blank" class="social-icon" id="instagram">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <a href="#" class="social-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m17.687 3.063l-4.996 5.711l-4.32-5.711H2.112l7.477 9.776l-7.086 8.099h3.034l5.469-6.25l4.78 6.25h6.102l-7.794-10.304l6.625-7.571zm-1.064 16.06L5.654 4.782h1.803l10.846 14.34z"/></svg>
+                <a href="https://x.com/Meliory2" target="_blank" class="social-icon" id="twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.687 3.063l-4.996 5.711l-4.32-5.711H2.112l7.477 9.776l-7.086 8.099h3.034l5.469-6.25l4.78 6.25h6.102l-7.794-10.304l6.625-7.571zm-1.064 16.06L5.654 4.782h1.803l10.846 14.34z"/></svg>
                 </a>
-                <a href="#" class="social-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                <a href="#" target="_blank" class="social-icon" id="spotify">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6c-.15-.5.15-1 .6-1.15c3.55-1.05 9.4-.85 13.1 1.35c.45.25.6.85.35 1.3c-.25.35-.85.5-1.3.25m-.1 2.8c-.25.35-.7.5-1.05.25c-2.7-1.65-6.8-2.15-9.95-1.15c-.4.1-.85-.1-.95-.5s.1-.85.5-.95c3.65-1.1 8.15-.55 11.25 1.35c.3.15.45.65.2 1m-1.2 2.75c-.2.3-.55.4-.85.2c-2.35-1.45-5.3-1.75-8.8-.95c-.35.1-.65-.15-.75-.45c-.1-.35.15-.65.45-.75c3.8-.85 7.1-.5 9.7 1.1c.35.15.4.55.25.85M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/albert-sánchez-santed-26a1b3304/" target="_blank" class="social-icon" id="linkedin">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
                 </a>
             </div>
             <p class="copyright">© 2024 Albert Sánchez. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Generar estrellas
-            const starsContainer = document.querySelector('.stars-container');
-            generateStars(starsContainer, 1000); // Aumentamos a 20 estrellas para mejor distribución
-            
-            // Animación del contador
-            let contador = 327;
-            const contadorElement = document.getElementById('contador-descargas');
-            
-            // Incremento ocasional
-            setInterval(() => {
-                if (Math.random() > 0.8) {
-                    contador++;
-                    contadorElement.textContent = contador;
-                }
-            }, 8000);
-            
-            // Botones de descarga
-            const downloadButtons = document.querySelectorAll('.download-button[data-url]');
-            downloadButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    window.open(this.getAttribute('data-url'), '_blank');
-                });
-            });
-
-            const fileButtons = document.querySelectorAll('.download-button[data-file]');
-            fileButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // En un entorno real, esto descargaría el archivo
-                    const filename = this.getAttribute('data-filename');
-                    alert(`Descargando ${filename}...`);
-                    contador++;
-                    contadorElement.textContent = contador;
-                });
-            });
-
-            // Efecto de scroll suave para los enlaces de navegación
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-
-        function generateStars(container, starCount) {
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                
-                // Posición aleatoria en todo el documento, no solo en la ventana visible
-                const xPos = Math.random() * 100; // porcentaje horizontal
-                const yPos = Math.random() * 100; // porcentaje vertical (distribuido en toda la altura)
-                
-                // Tamaño aleatorio
-                const size = Math.random() * 3 + 1; // entre 1px y 4px
-                
-                // Opacidad aleatoria
-                const opacity = Math.random() * 0.5 + 0.3; // entre 0.3 y 0.8
-                
-                // Duración aleatoria
-                const duration = Math.random() * 4 + 3; // entre 3s y 7s
-                
-                // Retraso aleatorio
-                const delay = Math.random() * 5; // entre 0s y 5s
-                
-                // Aplicar estilos
-                star.style.left = `${xPos}%`;
-                star.style.top = `${yPos}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.setProperty('--star-opacity', opacity);
-                star.style.setProperty('--twinkle-duration', `${duration}s`);
-                star.style.animationDelay = `${delay}s`;
-                
-                // Añadir brillo a algunas estrellas
-                if (Math.random() > 0.7) {
-                    star.classList.add('with-glow');
-                }
-                
-                container.appendChild(star);
-            }
-        }
-    </script>
+    <script src="./scripts/contador-descargas.js"></script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 // Archivo: contador-descargas.js
 
 // Utilizamos Firebase Realtime Database para almacenar el contador
-// Asegúrate de reemplazar la configuración con la de tu propio proyecto de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDNbsRSsJ4Tmo5F9QCIqsz567IXVg5B5T0",
   authDomain: "pagina-web-personal-5b8b6.firebaseapp.com",
